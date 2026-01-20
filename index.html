@@ -1,12 +1,162 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>RyanB Portfolio</title>
+  <meta charset="UTF-8" />
+  <title>RyanB — Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- all embedded CSS using classes - in style tag -->
+  <style> 
+    :root {
+      --bg: #0f1115;
+      --fg: #e6e6e6;
+      --muted: #9aa0a6;
+      --accent: #4f7cff;
+      --card: #161922;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 4rem 1.5rem;
+    }
+
+    header {
+      margin-bottom: 4rem;
+    }
+
+    header h1 {
+      font-size: 2.2rem;
+      font-weight: 600;
+      letter-spacing: -0.5px;
+    }
+
+    header p {
+      margin-top: 0.75rem;
+      color: var(--muted);
+      max-width: 600px;
+    }
+
+    section {
+      margin-bottom: 3.5rem;
+    }
+
+    section h2 {
+      font-size: 1.2rem;
+      margin-bottom: 1.25rem;
+      color: var(--accent);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .card {
+      background: var(--card);
+      padding: 1.5rem;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+    }
+
+    .card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.4rem;
+      font-weight: 500;
+    }
+
+    .card p {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    footer {
+      margin-top: 5rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 
 <body>
-  <h1>RyanB</h1>
-  <p>My GitHub portfolio page.</p>
+  <div class="container">
+
+    <header>
+      <h1>RyanB</h1>
+      <p>
+        Student developer focused on clean logic, exam-ready code,
+        and simple interactive projects.
+      </p>
+    </header>
+
+    <section>
+      <h2>Projects</h2>
+
+      <div class="card">
+        <h3>Tap the Spider</h3>
+        <p>Casual reaction-based game with minimal UI and fast feedback.</p>
+      </div>
+
+      <div class="card">
+        <h3>Clean Brush Blitz</h3>
+        <p>Interactive cleaning mechanic built for mobile-first play.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Skills</h2>
+
+      <div class="card">
+        <p>
+          JavaScript · HTML · CSS · Python · Git · OCR / A-Level CS logic
+        </p>
+      </div>
+    </section>
+
+<section>
+  <h2>Contact</h2>
+
+  <div class="card">
+    <p>
+      Email:
+      <a href="mailto:yourname@example.com">
+        ryanbraid@outlook.com
+      </a>
+    </p>
+
+    <p style="margin-top: 0.5rem;">
+      GitHub:
+      <a href="https://github.com/YOUR_USERNAME" target="_blank">
+        github.com/YOUR_USERNAME
+      </a>
+    </p>
+  </div>
+</section>
+
+    <footer>
+      <p>© 2026 RyanB</p>
+    </footer>
+
+  </div>
 </body>
 </html>

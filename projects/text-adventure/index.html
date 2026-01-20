@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>My Text Adventure</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <script src="script.js"></script>
+</head>
+
+<body>
+
+    <!-- START SCREEN -->
+    <div id="startScreen">
+        <h1>SPACE ESCAPE</h1>
+        <p>A text adventure</p>
+        <button onclick="startGame()">START</button>
+    </div>
+
+    <!-- GAME -->
+    <div id="gridBox" style="display:none;">
+        <div id="output"></div>
+        <div id="cli" contenteditable="true" onkeyup="checkInput(event)"></div>
+    </div>
+
+</body>
+
+</html>
