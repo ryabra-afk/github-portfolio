@@ -44,5 +44,3 @@ function handlePassword(action){
         }
     }
 }
-//localStorage example: "test@email.com" → { password: "123456" }
-//IN README EXPLAIN WHY BACKEND NOT USED BUT LOCALSTORAGE INSTEAD AS EDUATIONAL TOOL

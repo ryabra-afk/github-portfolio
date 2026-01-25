@@ -11,7 +11,7 @@ body {
     display: flex;  /* uses flexbox web template  */
     flex-direction: column; /* ...and forces elements one on top of other  */
     gap: 5%; /* ...and a responsive gap system between elements  */
-    width: 60%;
+    width: 45%;
     height: 30%;
     background-color: rgb(255,255,255);  /* ... or target colour with rgb */
     border-radius: 12px; /* rounded corners */
