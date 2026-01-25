@@ -81,3 +81,9 @@ Shows Failed Sign-in Following Correct Email Input With Incorrect Password Input
 
 Shows Failed Sign-in Following Incorrect Email Input AND Incorrect Password Input
 ![Shows Failed Sign-in Following Incorrect Email Input AND Incorrect Password Input](images/image5.png)
+
+Shows Failed Sign-in When An Input Field Is Left Empty
+![Shows Failed Sign-in When An Input Field Is Left Empty](images/image6.png)
+
+Shows Failed Account Creation When An Input Field Is Left Empty
+![Shows Failed Account Creation When An Input Field Is Left Empty](images/image7.png)
