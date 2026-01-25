@@ -73,7 +73,7 @@ Shows Account Creation
 Shows Successful Sign-in Following Account Creation
 ![Shows Successful Sign-in Following Account Creation](images/image2.png)
 
-Shows Failed Sign-in Following Incorrect Email Input With Correct Password
+Shows Failed Sign-in Following Incorrect Email Input With Correct Password Input
 ![Shows Failed Sign-in Following Incorrect Email Input With Correct Password Input](images/image3.png)
 
 Shows Failed Sign-in Following Correct Email Input With Incorrect Password Input
