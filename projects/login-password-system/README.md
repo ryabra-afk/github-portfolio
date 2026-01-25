@@ -67,8 +67,14 @@ Future Improvements
 -Improve UI feedback without alerts
 -Add form validation and error messaging
 
-
+Shows Create Account
 ![Shows Create Account](images/image1.png)
-![Shows Successfull Signin Following Account Creation](login-password-system/images/image2.png)
-![Shows Failed Signin Following Incorrect Email Input With Correct Password](login-password-system/images/image3.png)
-![Shows Failed Signin Following Correct Email Input With Incorrect Password](login-password-system/images/image4.png)
+
+Shows Successfull Signin Following Account Creation]
+![Shows Successfull Signin Following Account Creation](images/image2.png)
+
+Shows Failed Signin Following Incorrect Email Input With Correct Password
+![Shows Failed Signin Following Incorrect Email Input With Correct Password](images/image3.png)
+
+Shows Failed Signin Following Correct Email Input With Incorrect Password
+![Shows Failed Signin Following Correct Email Input With Incorrect Password](images/image4.png)
