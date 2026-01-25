@@ -1,0 +1,78 @@
+body {
+    display:flex;
+    background-color: #e6e2da; /* target colour with hex */
+    height: 100vh; /* viewport height so percentages e.g. 50% can be calculated  */
+    align-items: center; /* y can be adjusted centrally as viewport height defined  */
+    justify-content: center; /* x can be adjusted centrally anyway  */
+
+}
+
+.detailsPannel { /* use . to target by class */
+    display: flex;  /* uses flexbox web template  */
+    flex-direction: column; /* ...and forces elements one on top of other  */
+    gap: 5%; /* ...and a responsive gap system between elements  */
+    width: 60%;
+    height: 30%;
+    background-color: rgb(255,255,255);  /* ... or target colour with rgb */
+    border-radius: 12px; /* rounded corners */
+}
+
+#email{ /* use # to target by id */
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 20px;
+
+}
+
+#password{ /* use # again to target by id */
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 20px;
+}
+
+
+#createBtn {
+    background-color: white;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 16px;
+    color: rgb(88, 195, 245);
+    border: 2px solid rgb(88, 195, 245);
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+#createBtn:hover {
+    background-color: rgb(88, 195, 245);
+    color: white;
+}
+
+#createBtn:active {
+    transform: scale(0.97);
+}
+
+
+h1 {
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
+}
+
+
+/* secondary button - sign in  */
+#signInBtn {
+    background-color: rgb(88, 195, 245);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 16px;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 12px;
+    cursor: pointer;
+}
+
+#signInBtn:hover {
+    background-color: rgb(60, 170, 230);
+}
+
+#signInBtn:active {
+    transform: scale(0.97);
+}
+
