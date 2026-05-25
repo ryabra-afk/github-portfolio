@@ -1,5 +1,24 @@
+function switchScreen(screen){
+
+    let loginScreen = document.getElementById("loginScreen");
+    let dashboardScreen = document.getElementById("dashboardScreen");
+
+    if(screen === "login"){
+        loginScreen.style.display = "flex"; //show login screen using flexbox layout
+        dashboardScreen.style.display = "none"; //hide dashboard screen
+    }
+
+    else if(screen === "dashboard"){
+        loginScreen.style.display = "none"; //hide login screen
+        dashboardScreen.style.display = "block"; //show dashboard screen by restoring normal div rendering (no flexbox here)
+    }
+}
+
+
 let emailInput = document.getElementById("email")
 let passwordInput = document.getElementById("password")
+let exams = JSON.parse(localStorage.getItem("exams")) || []; //stores all exam objects
+//.parse turns string to array to SAVE data so .js can use it again
 
 // emailInput.addEventListener("input", function() {  
 //     // the function is passed as an argument and is never called directly by me
@@ -37,10 +56,58 @@ function handlePassword(action){
 
         else if(details === password){
             alert("Sign In Successful")
+            switchScreen("dashboard"); //switch to dashboard screen if login successfull
+            displayExams(); //renders saved exams immediately on login
         }
 
         else{
             alert("Incorrect Password")
         }
+    }
+}
+
+function addExam(){
+    //retrieve values entered by user
+    let subject = document.getElementById("subject").value
+    let examDate = document.getElementById("examDate").value;
+    let subjectColor = document.getElementById("subjectColor").value;
+
+    //validation check
+    if(subject === "" || examDate === ""){
+        alert("Please Complete All Fields");
+        return; //stops function from running if fields not complete
+    }
+
+    //if validation passes create new exam object
+    let exam = {
+        subject: subject,
+        date: examDate,
+        color: subjectColor,
+    };
+    exams.push(exam) //add exam object into exams array
+    localStorage.setItem("exams", JSON.stringify(exams)); //.stringify converts array into string so it can be saved in localStorage to LOAD data
+    displayExams(); //update dahsboard visually
+}
+
+function displayExams(){
+    let examContainer = document.getElementById("examContainer")
+
+    examContainer.innerHTML = ""; //clear old rendered exams before re-rendering
+
+    for(let i=0; i<exams.length; i++){
+        let exam = exams[i]; //gets one object from array so can access its .subject .date .color
+
+        let examCard = document.createElement("div"); //creates new div element in memory
+        examCard.classList.add("examCard") //adds CSS class styling
+        examCard.style.borderLeft = `10px solid ${exam.color}` //left border color matches subject color
+        
+        //dynamic content generation to display exam card
+        examCard.innerHTML = `
+            <h2>${exam.subject}</h2>
+            <p>${exam.date}</p>
+        `;
+
+        examContainer.appendChild(examCard); //adds completed card into webpage
+
     }
 }

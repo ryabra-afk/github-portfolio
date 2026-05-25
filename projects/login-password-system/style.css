@@ -76,3 +76,27 @@ h1 {
     transform: scale(0.97);
 }
 
+#dashboardScreen{
+    display:none;
+}
+
+.examPanel{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    width:45%;
+    background:white;
+    padding:20px;
+    border-radius:12px;
+}
+
+#examContainer{
+    margin-top:20px;
+}
+
+.examCard{
+    background:white;
+    padding:15px;
+    margin-top:10px;
+    border-radius:10px;
+}
