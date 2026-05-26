@@ -102,12 +102,47 @@ function displayExams(){
         examCard.style.borderLeft = `10px solid ${exam.color}` //left border color matches subject color
         
         //dynamic content generation to display exam card
+        //{i} later becomes id="countdown-0/1/2" in updateCountdowns()
+        //.toLocaleString makes a more readable format
         examCard.innerHTML = `
             <h2>${exam.subject}</h2>
-            <p>${exam.date}</p>
+            <p>${new Date(exam.date).toLocaleString()}</p> 
+            <p id="countdown-${i}">Loading countdown...</p> 
         `;
 
         examContainer.appendChild(examCard); //adds completed card into webpage
-
+        updateCountdowns(); //immediately calculate countdown after rendering card
     }
 }
+
+function updateCountdowns(){
+    let currentTime = new Date().getTime() //get current time in millisecs
+
+    for(let i=0; i<exams.length; i++){ //LOOP through exams
+
+        let examTime = new Date(exams[i].date).getTime() //get date of current exam and convert it into millisecs using exams[i].date
+        let difference = examTime - currentTime //calc difference between now and exam
+        let countdownElement = document.getElementById(`countdown-${i}`) //e.g. "countdown-1"
+        
+        //if countdown paragraph doesnt exist for this exam card
+        if(!countdownElement){
+            continue; //skip THIS loop cycle, instead of using return to exit function
+        }
+
+        //if exam time has already passed
+        if(difference <=0){
+            countdownElement.innerText = "Exam Started";
+            continue;
+        }
+
+        
+        let days = Math.floor( difference / (1000*60*60*24) ); //total remaining full days
+        let hours = Math.floor( (difference / (1000*60*60)) % 24 ); //remaining hours after days removed
+        let minutes = Math.floor( (difference / (1000*60)) % 60 ); //remaining minutes after hours removed
+        let seconds = Math.floor( (difference / 1000) % 60 ); //remaining seconds after minutes removed
+
+        countdownElement.innerText =  `${days}d ${hours}h ${minutes}m ${seconds}s`; //update paragraph text with live countdown
+    }
+
+}
+setInterval(updateCountdowns, 1000); // runs countdown system every 1 second to update timer continuosly
