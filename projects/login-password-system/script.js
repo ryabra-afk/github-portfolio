@@ -19,13 +19,8 @@ let emailInput = document.getElementById("email")
 let passwordInput = document.getElementById("password")
 let exams = JSON.parse(localStorage.getItem("exams")) || []; //stores all exam objects
 //.parse turns string to array to SAVE data so .js can use it again
-let sessions = []; //stores all revision session objects
-
-// emailInput.addEventListener("input", function() {  
-//     // the function is passed as an argument and is never called directly by me
-        //updates emailInput autmoatically when input is changed
-//     console.log("key pressed")
-// }); 
+let sessions = JSON.parse(localStorage.getItem("sessions")) || []; //stores all revision session objects
+let editingSessionIndex = null; //stores index of session currently being edited
 
 function handlePassword(action){
     let email = emailInput.value; //.value retrieves data inside emailInput element

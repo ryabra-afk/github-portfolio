@@ -91,27 +91,64 @@ function addSession(){
     //create revision session object
     let session = {subject: subject, day: day, startHour: startHour, endHour: endHour, color: color};
 
-    sessions.push(session); //add session object into sessions array
+    //if editing...
+    if(editingSessionIndex !== null){
+        sessions[editingSessionIndex] = session; //replace old session object with updated session
+        editingSessionIndex = null; //exit editing mode
+    }
+
+    //otherwise create completely new session
+    else{
+        sessions.push(session); // add new session into sessions array
+    }
+    localStorage.setItem("sessions",JSON.stringify(sessions)); //save sessions array into localStorage
+
     console.log(sessions)
     renderSessions(); //visually render sessions into tt using function below
 
 }
 
 function renderSessions(){
+    generateTimetable(); //rebuild fresh timetable before regenerating, so deleted sessions don't appear
     for(let i=0; i<sessions.length; i++){
         let session = sessions[i] //retrieve current session object
         
         for(let hour = session.startHour; hour<session.endHour; hour++){ //loop through each session's start and end hour
             let slot = document.querySelector(`[data-day="${session.day}"][data-hour="${hour}"]`);  //complex formatting to find matching timetable slot
         
+           
             if (slot){ //if matching timtable cell exists i.e. (true)
-                slot.style.backgroundColor = session.color; //embedded CSS
-                slot.innerText = session.subject; //display subject text inside slot
+                slot.style.backgroundColor = session.color; //embedded CSS to colour all hour slots
+                 if(hour == session.startHour){ //only first hour displays subject and delete button
+                    slot.innerHTML = `${session.subject} 
+                    <button onclick="editSession(${i})">Edit</button>
+                    <button onclick="deleteSession(${i})">X</button>`; 
+                    //these lines display subject text inside slot and add delete & edit button via dynamic HTML generation
+                    //when Edit button is clicked, editSession(i) runs and stores index of session being edited
+                 }
             }
         }
     }
     
 }
 
+function deleteSession(index){
+    sessions.splice(index,1) //remove session object from array by splice
+    localStorage.setItem("sessions",JSON.stringify(sessions)); //update localStorage after deletion
+    renderSessions() //re-render timetable with updated sessions
+}
+
+function editSession(index){
+    let session = sessions[index]; //retrieve slected session object
+    //these lines re-enter the current session's info that is being edited into the add a revision session input fields
+    document.getElementById("sessionSubject").value = session.subject;
+    document.getElementById("sessionDay").value = session.day;
+    document.getElementById("startHour").value = session.startHour;
+    document.getElementById("endHour").value = session.endHour;
+    
+    editingSessionIndex = index; //store currently edited session index
+}
+
 generateTimetable();
 loadSubjectOptions();
+renderSessions();
