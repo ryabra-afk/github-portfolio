@@ -19,6 +19,7 @@ let emailInput = document.getElementById("email")
 let passwordInput = document.getElementById("password")
 let exams = JSON.parse(localStorage.getItem("exams")) || []; //stores all exam objects
 //.parse turns string to array to SAVE data so .js can use it again
+let sessions = []; //stores all revision session objects
 
 // emailInput.addEventListener("input", function() {  
 //     // the function is passed as an argument and is never called directly by me
@@ -58,6 +59,7 @@ function handlePassword(action){
             alert("Sign In Successful")
             switchScreen("dashboard"); //switch to dashboard screen if login successfull
             displayExams(); //renders saved exams immediately on login
+            loadSubjectOptions(); //refresh revision subject dropdown
         }
 
         else{

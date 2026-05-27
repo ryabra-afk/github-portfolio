@@ -46,9 +46,41 @@
 
         <div id="examContainer"></div>
 
+        <div class="sessionPanel">
+
+            <h1>Add Revision Session</h1>
+
+            <select id="sessionSubject"></select>
+
+            <select id="sessionDay">
+
+                <option>Monday</option>
+                <option>Tuesday</option>
+                <option>Wednesday</option>
+                <option>Thursday</option>
+                <option>Friday</option>
+                <option>Saturday</option>
+                <option>Sunday</option>
+
+            </select>
+
+            <input type="number" id="startHour" placeholder="Start Hour (0-23)" min="1" max="23">
+            <input type="number" id="endHour" placeholder="End Hour (0-23)" min="1" max="23">
+            <button onclick="addSession()">
+                Add Session
+            </button>
+
+        </div>
+        <!-- TIMETABLE/CALENDAR SCREEN -->
+        <div id="timetable"></div>
+
     </div>
+
+
 
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
+    <script src="timetable.js"></script>
 
 </body>
+

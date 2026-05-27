@@ -1,11 +1,17 @@
 body {
-    display:flex;
-    background-color: #e6e2da; /* target colour with hex */
-    height: 100vh; /* viewport height so percentages e.g. 50% can be calculated  */
-    align-items: center; /* y can be adjusted centrally as viewport height defined  */
-    justify-content: center; /* x can be adjusted centrally anyway  */
 
+    background-color: #e6e2da;
+
+    margin:0;
+
+    padding:40px;
+
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
 }
+#dashboardScreen{
+    width:100%;
+}
+
 
 .detailsPannel { /* use . to target by class */
     display: flex;  /* uses flexbox web template  */
@@ -107,4 +113,30 @@ p {
     padding:15px;
     margin-top:10px;
     border-radius:10px;
+}
+
+/* weekly timetable grid container */
+#timetable{
+    display:grid;
+    grid-template-columns: 100px repeat(7, 1fr); /* 1 time column + 7 weekday columns */
+    margin-top:20px;
+    background:white;
+    border-radius:12px;
+    overflow:hidden;
+}
+
+/* top day labels + left time labels */
+.timeCell{
+    border:1px solid #dcdcdc;
+    padding:10px;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-weight:bold;
+    text-align:center;
+    background:#f5f5f5;
+}
+
+/* empty timetable slots */
+.slot{
+    border:1px solid #e0e0e0;
+    height:60px;
 }
