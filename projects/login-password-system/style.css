@@ -83,7 +83,7 @@ p {
 }
 
 #signInBtn:hover {
-    background-color: rgb(60, 170, 230);
+    background-color: rgb(71, 173, 228);
 }
 
 #signInBtn:active {
@@ -139,4 +139,11 @@ p {
 .slot{
     border:1px solid #e0e0e0;
     height:60px;
+}
+
+/* highlight current real-world day in timetable header */
+.currentDay{
+    background-color: rgb(71, 173, 228);
+    color:white;
+    font-weight:bold;
 }
