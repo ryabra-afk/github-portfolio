@@ -136,7 +136,7 @@ function addSession(){
 
 
     //create revision session object
-    let session = {subject: subject, day: day, date: sessionDate.toDateString(), startHour: startHour, endHour: endHour, color: color};
+    let session = {subject: subject, day: day, date: sessionDate.toDateString(), startHour: startHour, endHour: endHour, color: color, completed: false, rating: null};
 
     //if editing...
     if(editingSessionIndex !== null){
@@ -166,17 +166,35 @@ function renderSessions(){
            
             if (slot){ //if matching timtable cell exists i.e. (true)
                 slot.style.backgroundColor = session.color; //embedded CSS to colour all hour slots
-                 if(hour == session.startHour){ //only first hour displays subject and delete button
-                    slot.innerHTML = `${session.subject} 
-                    <button onclick="editSession(${i})">Edit</button>
-                    <button onclick="deleteSession(${i})">X</button>`; 
-                    //these lines display subject text inside slot and add delete & edit button via dynamic HTML generation
-                    //when Edit button is clicked, editSession(i) runs and stores index of session being edited
-                 }
+                if(hour == session.startHour){ //only first hour displays subject and delete button
+
+                    //add folllowing HTML buttons into each revision block: ratings 😀😐😥, Edit, X (delete)
+                    slot.innerHTML = `
+                        ${session.subject}
+                        <button onclick="rateSession(${i}, 'good')">😀</button>
+                        <button onclick="rateSession(${i}, 'average')">😐</button>
+                        <button onclick="rateSession(${i}, 'poor')">😥</button>
+                        <button onclick="editSession(${i})">Edit</button>
+                        <button onclick="deleteSession(${i})">X</button>
+                    `;
+
+                    //display rating user has selected
+                    if(session.rating){
+                        slot.innerHTML += ` <span>(${session.rating})</span>`;
+                    }
+                }
             }
         }
     }
     
+}
+
+//called when user clicks on HTML rating buttons tomark session as completed and store productivity rating
+function rateSession(index, rating){
+    sessions[index].completed = true;
+    sessions[index].rating = rating; //store rating in session object
+    localStorage.setItem("sessions", JSON.stringify(sessions)); //update localStorage with new session rating
+    renderSessions();
 }
 
 function deleteSession(index){
