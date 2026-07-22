@@ -52,7 +52,7 @@ function generateTimetable(){
         }
         //display weekday name and date number
         dayCell.innerText = `${days[i]} ${currentDay.getDate()}`;
-            this.timetable.appendChild(dayCell); //add weekday cell into timetable
+            timetable.appendChild(dayCell); //add weekday cell into timetable
         }
 
     //ROWS containing hours
@@ -103,6 +103,18 @@ function addSession(){
     //move copied date to selected weekday
     sessionDate.setDate(currentWeekDate.getDate() - currentWeekDate.getDay() + 1 + dayIndex);
 
+    //VALIDATION prevent scheduling sessions before today
+    let todayDate = new Date();
+    todayDate.setHours(0, 0, 0, 0); //remove time from today so comparison is date only
+    let selectedDate = new Date(sessionDate); 
+    selectedDate.setHours(0, 0, 0, 0); //remove time from selected session date
+
+    //stop if selected date is before today
+    if(selectedDate < todayDate){
+        alert("Cannot Schedule A Session Before Today");
+        return;
+    }
+
     let startHour = document.getElementById("startHour").value;
     let endHour = document.getElementById("endHour").value;
     let matchingExam = exams.find(exam=> exam.subject === subject); //find exam in exams array where exam.subject === selected subject
@@ -133,6 +145,33 @@ function addSession(){
         alert("The Selected End Hour is Out Of Range")
         return;
     }
+    // prevent overlapping sessions on the same date
+    for(let i = 0; i < sessions.length; i++){
+
+        let existing = sessions[i];
+
+        // skip session currently being edited
+        if(i === editingSessionIndex){
+            continue;
+        }
+
+        //VALIDATION: check overlap only compare sessions on the same date
+        if(existing.date === sessionDate.toDateString()){
+            // check if time ranges overlap
+            let overlaps = startHour < existing.endHour && endHour > existing.startHour;
+            if(overlaps){
+                alert("Cannot Schedule overlapping sessions")
+                return;
+            }
+        }
+    }
+    // VALIDATION: prevent scheduling revision after the exam date
+    let examDate = new Date(matchingExam.date);
+    if(sessionDate > examDate){
+        alert("Cannot schedule a revision session after the exam date");
+        return;
+    }
+
 
 
     //create revision session object
