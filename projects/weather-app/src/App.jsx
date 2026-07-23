@@ -36,37 +36,81 @@ function App() {
 
   return(
     <div>
-      <h1>Weather App</h1>
-      <input type = "text" 
-      placeholder = "Enter city..." 
-      value = {city} //input value is set to the city state varaible so that it can be updated and displayed in the input field
-      //updates city variable whenever user types in the input box
-      onChange={(e) => setCity(e.target.value)} /> 
+      <h1>Weather</h1>
 
-      <button onClick={handleSearch}>Search</button>
+      {/* div container for input box and search button, with class name for styling */}
+      <div className = "search-container">
+        <input className = "city-input" type = "text" 
+        placeholder = "Enter city..." 
+        value = {city} //input value is set to the city state varaible so that it can be updated and displayed in the input field
+        //updates city variable whenever user types in the input box
+        onChange={(e) => setCity(e.target.value)} /> 
+
+        <button className ="search-button" onClick={handleSearch}>Search</button>
+      </div>
+
       {/* if error variable is not empty, display the error message in a p element with red color */}
       {error && <p style={{ color: 'red' }}>{error}</p>} 
       <p>You typed: {city}</p>
       
       {/*if weather variable is not null, display the weather information in a div element*/}
       {weather && (
-        <div>
+        <div className="current-weather-card">
+
+          {/* URL retrieves weather icon image 2x size*/}
+          <img
+            src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
+            className="weather-icon"
+          />
+
           {/* display city name returned by API */}
           <h2>{weather.name}</h2>
-          {/* display temperature returned by API in celsius */}
-          <p>Temperature: {weather.main.temp}°C</p>
-          {/* display main weather condition returned by API */}
-          <p>Condition: {weather.weather[0].main}</p>
-          {/* display what the temperature feels like to the human body */}
-          <p>Feels like: {weather.main.feels_like}°C</p>
-          {/* display humidity percentage */}
-          <p>Humidity: {weather.main.humidity}%</p>
-          {/* display wind speed in metres per second */}
-          <p>Wind speed: {weather.wind.speed} m/s</p>
-          {/* display atmospheric pressure in hPa */}
-          <p>Pressure: {weather.main.pressure} hPa</p>
-          {/* display visibility in kilometres */}
-          <p>Visibility: {weather.visibility / 1000} km</p>
+
+          <div className="metrics-grid">
+
+            <div className="metric-card">
+              {/* display temperature returned by API in celsius */}
+              <p>Temperature</p>
+              <h3>{weather.main.temp}°C</h3>
+            </div>
+
+            <div className="metric-card">
+              {/* display main weather condition returned by API */}
+              <p>Condition</p>
+              <h3>{weather.weather[0].main}</h3>
+            </div>
+
+            <div className="metric-card">
+              {/* display what the temperature feels like to the human body */}
+              <p>Feels like</p>
+              <h3>{weather.main.feels_like}°C</h3>
+            </div>
+
+            <div className="metric-card">
+              {/* display humidity percentage */}
+              <p>Humidity</p>
+              <h3>{weather.main.humidity}%</h3>
+            </div>
+
+            <div className="metric-card">
+              {/* display wind speed in metres per second */}
+              <p>Wind speed</p>
+              <h3>{weather.wind.speed} m/s</h3>
+            </div>
+
+            <div className="metric-card">
+              {/* display atmospheric pressure in hPa */}
+              <p>Pressure</p>
+              <h3>{weather.main.pressure} hPa</h3>
+            </div>
+
+            <div className="metric-card">
+              {/* display visibility in kilometres */}
+              <p>Visibility</p>
+              <h3>{weather.visibility / 1000} km</h3>
+            </div>
+
+          </div>
         </div>
       )}
 
@@ -74,24 +118,35 @@ function App() {
       <div>
         <h2>5-Day Forecast</h2>
         {/* .map creates a new UI element (div) for each day item in the forecast array using indexes */}
-        {forecast.map((day, index) => (
-          // give each div a unique key based on the index of the day's forecast so react can  update the UI when forecast array changes
-          <div key={index}>
-            {/* date and time of this forecast entry */}
-            <p><strong>{day.dt_txt}</strong></p>
+        <div className="forecast-grid">
+          {forecast.map((day, index) => (
+            // give each div a unique key based on the index of the day's forecast so react can  update the UI when forecast array changes
+            <div key={index} className="forecast-card">
+              {/* extract daate in day month format from YYYY-MM-DD HH:MM:SS format */}
+              <p>
+                <strong>
+                  {new Date(day.dt_txt).toLocaleDateString('en-GB', {day: 'numeric', month: 'long'})}
+                </strong>
+              </p>
 
-            {/* forecast temperature */}
-            <p>{Math.round(day.main.temp)}°C</p>
+              {/* URL retrieves weather icon image from API 2x size*/}
+              <img
+                src={`https://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png`}
+                className="forecast-icon"
+              />
 
-            {/* day.weather[0].main to get main forecast weather condition */}
-            <p>{day.weather[0].main}</p>
+              {/* forecast temperature */}
+              <p>{Math.round(day.main.temp)}°C</p>
 
-            {/* display humidity percentage */}
-            <p>Humidity: {day.main.humidity}%</p>
-            
-            <hr />
-          </div>
-        ))}
+              {/* day.weather[0].main to get main forecast weather condition */}
+              <p>{day.weather[0].main}</p>
+
+              {/* display humidity percentage */}
+              <p>Humidity: {day.main.humidity}%</p>
+
+            </div>
+          ))}
+        </div>
       </div>
     )}
     </div>
