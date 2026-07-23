@@ -5,12 +5,33 @@ function App() {
   const [weather, setWeather] = useState(null); //create a state variable called weather and a function to update it called setWeather, initialised to null]
   const [error, setError] = useState(''); //Create a state variable called error and a function to update it called setError, initialised to an empty string
   const [forecast, setForecast] = useState([]); //create a state variable called forecast and a function to update it called setForecast, initialised to an empty array
+  //array of matching city suggestions returned by geocoding API
+  const [searchSuggestions, setSearchSuggestions] = useState([]);
+  //controls whether the dropdown should be visible
+  const [loadSuggestions, setLoadSuggestions] = useState(false);
+  
   const apiKey = import.meta.env.VITE_WEATHER_API_KEY; //get the API key from the .env file
+
+  async function fetchSearchSuggestions(query) {
+    //if user typed less than 2 characters - reset suggestions and return to not fetch suggestions
+    if (query.length < 2) {
+      setSearchSuggestions([]);
+      setLoadSuggestions(false);
+      return;
+    }
+    //fetch city suggestions from OpenWeather Geocoding API - max 5
+    const suggestionResponse = await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${query}&limit=5&appid=${apiKey}`);
+    const suggestionData = await suggestionResponse.json();
+    setSearchSuggestions(suggestionData);
+    setLoadSuggestions(true);
+    setLoadSuggestions(suggestionData.length > 0);
+  }
 
   //runs when user clicks search button
   async function handleSearch() {
     setError(''); //reset error message to empty string
     setWeather(null); //reset weather variable to null to remove old weather data
+    setForecast([]);   //clear old forecast
     //send request to openWeather API with the city name and API key, and get the response in JSON format
     const weather_Response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`);
     
@@ -38,15 +59,53 @@ function App() {
     <div>
       <h1>Weather</h1>
 
-      {/* div container for input box and search button, with class name for styling */}
+       {/* div container for input box and search button, with class name for styling */}
       <div className = "search-container">
-        <input className = "city-input" type = "text" 
-        placeholder = "Enter city..." 
-        value = {city} //input value is set to the city state varaible so that it can be updated and displayed in the input field
-        //updates city variable whenever user types in the input box
-        onChange={(e) => setCity(e.target.value)} /> 
 
-        <button className ="search-button" onClick={handleSearch}>Search</button>
+        {/* wrapper keeps dropdown aligned directly under the input box */}
+        <div className = "input-wrapper">
+
+          <input className = "city-input" type = "text" 
+          placeholder = "Enter city..." 
+          value = {city} //input value is set to the city state varaible so that it can be updated and displayed in the input field
+          //updates city variable whenever user types in the input box
+          onChange={(e) => {
+            setCity(e.target.value); // update input text
+            fetchSearchSuggestions(e.target.value); // fetch matching cities
+          }}
+          //allow search with enter key as well
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              handleSearch();
+            }
+          }}/>
+
+          {/* if loadSuggestions is true display the suggestions dropdown */}
+          {loadSuggestions && (
+            <div className="suggestions-dropdown">
+              {searchSuggestions.map((item, index) => (
+                <div
+                  key={index}
+                  className="suggestion-item"
+                  onClick={() => {
+                    setCity(item.name); //put selected city into the input
+                    setLoadSuggestions(false); //hide dropdown
+                    setSearchSuggestions([]); //clear suggestion list
+
+                    //search immediately using selected city
+                    handleSearch(item.name);
+                  }}
+                >
+                  {item.name}, {item.country}
+                </div>
+              ))}
+            </div>
+          )}
+
+        </div>
+
+        <button className="search-button" onClick={handleSearch}>Search</button>
+
       </div>
 
       {/* if error variable is not empty, display the error message in a p element with red color */}
@@ -63,8 +122,8 @@ function App() {
             className="weather-icon"
           />
 
-          {/* display city name returned by API */}
-          <h2>{weather.name}</h2>
+          {/* display city name and country code returned by API */}
+          <h2>{weather.name}, {weather.sys.country}</h2>
 
           <div className="metrics-grid">
 

@@ -203,4 +203,41 @@ code {
   box-shadow: var(--shadow); /* shadow from existing variable in root of css file*/
 }
 
+/* allow dropdown to be positioned under the input */
+.search-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+/* wrapper used to position the dropdown directly under the input */
+.input-wrapper {
+  position: relative;
+}
+
+/* dropdown panel */
+.suggestions-dropdown {
+  position: absolute; /* position dropdown independently of normal page layout so it doesnt push other elements down */
+  top: 58px;
+  left: 0;
+  width: 100%;
+  background: white;
+  border: 1px solid rgba(0, 64, 226, 0.474);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+
+/* each suggestion row */
+.suggestion-item {
+  padding: 12px 16px;/* vertical and horizontal spacing inside each row */
+  cursor: pointer;
+  text-align: center;
+}
+
+/* light blue highlight on hover */
+.suggestion-item:hover {
+  background: rgba(82, 145, 254, 0.07);
+}
+
 
