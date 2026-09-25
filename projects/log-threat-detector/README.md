@@ -117,14 +117,14 @@ After processing the log, an IP is flagged if it has attempted to use at least 3
 
 The `sample.log` file contains different login events so that each detection rule can be tested.
 
-![sample.log file contents](images/screenshots/sample_log.png)
+![sample.log file contents](screenshots/sample_log.png)
 
 ## Example Output
 
 Running `main.py` displays the alerts in the VS Code terminal.
 
 
-![VS code terminal when main.py executed](images/screenshots/terminal.png)
+![VS code terminal when main.py executed](screenshots/terminal.png)
 
 The alerts include the IP address involved and the reason it was flagged.
 
@@ -146,9 +146,8 @@ with open("reports/threat_report.txt", "w") as report:
 
 This means the results can be reviewed after the program has finished running.
 
-### Screenshot 3 — `threat_report.txt`
 
-![Threat report text file displaying threats](images/screenshots/threat_report.png)
+![Threat report text file displaying threats](screenshots/threat_report.png)
 
 ## Project Structure
 
