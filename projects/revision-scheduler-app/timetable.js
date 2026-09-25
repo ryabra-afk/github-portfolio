@@ -181,6 +181,7 @@ function addSession(){
     if(editingSessionIndex !== null){
         sessions[editingSessionIndex] = session; //replace old session object with updated session
         editingSessionIndex = null; //exit editing mode
+        document.getElementById("editMessage").style.display = "none"; //hide editing instructions after update
     }
 
     //otherwise create completely new session
@@ -228,6 +229,24 @@ function renderSessions(){
             }
         }
     }
+    renderExams();
+}
+
+function renderExams(){
+    for(let i = 0; i < exams.length; i++){
+        let exam = exams[i];
+        let examDate = new Date(exam.date); //convert exam date into Date object
+        let examHour = examDate.getHours(); //get hour of the exam
+        //find matching timetable slot
+        let slot = document.querySelector(`[data-date="${examDate.toDateString()}"][data-hour="${examHour}"]`);
+        if(slot){
+            let examMarker = document.createElement("div");
+            examMarker.classList.add("examMarker");
+            examMarker.style.borderLeftColor = exam.color;
+            examMarker.innerText = `EXAM: ${exam.subject}`;
+            slot.appendChild(examMarker);
+        }
+    }
 }
 
 //called when user clicks on HTML rating buttons tomark session as completed and store productivity rating
@@ -240,7 +259,7 @@ function rateSession(index, rating){
     sessions[index].completed = true;
     sessions[index].rating = rating; //store rating in session object
     //automatically create follow-up session if rating was poor
-    if(rating === "poor" && !sessions[index].rescheduled){
+    if(rating === "😥" && !sessions[index].rescheduled){
         rescheduleSession(index); //create replacement session
         sessions[index].rescheduled = true; //mark original session as already rescheduled to prevent multiple reschedules
     }
@@ -264,6 +283,14 @@ function editSession(index){
     document.getElementById("endHour").value = session.endHour;
     
     editingSessionIndex = index; //store currently edited session index
+
+    document.getElementById("editMessage").style.display = "block"; //show editing instructions
+
+    // Scroll back to revision panel
+    document.querySelector(".sessionPanel").scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
 }
 
 generateTimetable();

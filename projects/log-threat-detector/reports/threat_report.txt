@@ -1,0 +1,13 @@
+[ALERT] Possible brute-force attack from 192.168.1.30 (3 failed attempts)
+[ALERT] Successful login after repeated failures from 192.168.1.30
+[ALERT] Connection from blacklisted IP: 10.0.0.5
+[ALERT] Connection from blacklisted IP: 10.0.0.5
+[ALERT] Possible brute-force attack from 10.0.0.5 (3 failed attempts)
+[ALERT] Connection from blacklisted IP: 10.0.0.5
+[ALERT] Possible brute-force attack from 10.0.0.5 (4 failed attempts)
+[ALERT] Connection from blacklisted IP: 10.0.0.5
+[ALERT] Possible brute-force attack from 10.0.0.5 (5 failed attempts)
+[ALERT] Rapid brute-force attack from 10.0.0.5 (5 failures in 60s)
+[ALERT] Connection from blacklisted IP: 10.0.0.5
+[ALERT] Possible brute-force attack from 192.168.1.50 (3 failed attempts)
+[ALERT] Multiple usernames attempted from 192.168.1.50: alice, charlie, bob

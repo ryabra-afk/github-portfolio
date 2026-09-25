@@ -96,20 +96,36 @@ function displayExams(){
 
         let examCard = document.createElement("div"); //creates new div element in memory
         examCard.classList.add("examCard") //adds CSS class styling
-        examCard.style.borderLeft = `10px solid ${exam.color}` //left border color matches subject color
+        examCard.style.borderLeft = `17px solid ${exam.color}` //left border color matches subject color
         
         //dynamic content generation to display exam card
         //{i} later becomes id="countdown-0/1/2" in updateCountdowns()
         //.toLocaleString makes a more readable format
         examCard.innerHTML = `
             <h2>${exam.subject}</h2>
-            <p>${new Date(exam.date).toLocaleString()}</p> 
-            <p id="countdown-${i}">Loading countdown...</p> 
+            <p>${new Date(exam.date).toLocaleString()}</p>
+            <p id="countdown-${i}">Loading countdown...</p>
+            <button onclick="deleteExam(${i})">Delete Exam</button>
         `;
 
         examContainer.appendChild(examCard); //adds completed card into webpage
         updateCountdowns(); //immediately calculate countdown after rendering card
     }
+}
+
+function deleteExam(index){
+    let deletedSubject = exams[index].subject; // store subject name before removing exam
+    exams.splice(index, 1); // remove exam object from exams array
+    // remove all revision sessions linked to the deleted subject
+    sessions = sessions.filter(session => session.subject !== deletedSubject);
+
+    // save updated exams and sessions arrays into localStorage
+    localStorage.setItem("exams", JSON.stringify(exams));
+    localStorage.setItem("sessions", JSON.stringify(sessions));
+
+    displayExams(); // re-render exam cards
+    loadSubjectOptions(); // refresh subject dropdown used when adding revision sessions
+    renderSessions(); // rebuild timetable without deleted subject's sessions
 }
 
 function updateCountdowns(){

@@ -1,26 +1,47 @@
-body {
-
+html, body {
     background-color: #e6e2da;
-
-    margin:0;
-
-    padding:40px;
-
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    margin: 0;
+    min-height: 100%;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
+
+#loginScreen {
+    background-color: #e6e2da;
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
 #dashboardScreen{
     width:100%;
+    padding:40px;
+    box-sizing:border-box;
 }
 
 
-.detailsPannel { /* use . to target by class */
-    display: flex;  /* uses flexbox web template  */
-    flex-direction: column; /* ...and forces elements one on top of other  */
-    gap: 5%; /* ...and a responsive gap system between elements  */
-    width: 45%;
-    height: 30%;
-    background-color: rgb(255,255,255);  /* ... or target colour with rgb */
-    border-radius: 12px; /* rounded corners */
+.detailsPannel {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 600px;
+    padding: 30px;
+    background: white;
+    border-radius: 12px;
+}
+
+.sessionPanel{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    width:45%;
+    background:white;
+    padding:20px;
+    border-radius:12px;
+
+
 }
 
 #email{ /* use # to target by id */
@@ -102,18 +123,34 @@ p {
     background:white;
     padding:20px;
     border-radius:12px;
+    
 }
 
 #examContainer{
-    margin-top:20px;
+    margin: 20px 0 300px 0;
+}
+
+/* centre add exam and add revision session panels */
+.examPanel,
+.sessionPanel{
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+    width:45%;
+    max-width:800px;
+    margin:0 auto;
+    background:white;
+    padding:25px;
+    border-radius:12px;
 }
 
 .examCard{
     background:white;
     padding:15px;
-    margin-top:10px;
+    margin-top:12px;
     border-radius:10px;
 }
+
 
 /* weekly timetable grid container */
 #timetable{
@@ -146,4 +183,59 @@ p {
     background-color: rgb(71, 173, 228);
     color:white;
     font-weight:bold;
+}
+
+/* modern button styling */
+button{
+    background-color: rgb(88,195,245);
+    color:white;
+    border:none;
+    border-radius:10px;
+    padding:12px 18px;
+    font-size:16px;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    cursor:pointer;
+
+}
+
+/* centre week label */
+#weekLabel{
+    font-size:2rem;
+    font-weight:700;
+    min-width:320px;
+    text-align:center;
+}
+
+/* previous/next week either side of week label */
+.calendarControls{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin: 100px auto 0px;
+}
+
+#timetable button {
+    padding: 6px 10px;
+    font-size: 14px;
+    border-radius: 8px;
+}
+
+.examMarker{
+    background: white;
+    border-left: 8px solid;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 6px;
+    font-weight: bold;
+    box-sizing: border-box;
+}
+
+#editMessage {
+    display: none;
+    text-align: center;
+    font-weight: bold;
+    color: rgb(228, 71, 71);
+    font-size: 24;
+    margin: 0;
 }
